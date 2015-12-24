@@ -1,11 +1,4 @@
-/*jshint multistr:true */
- /*jshint -W030 */
-this.recline = this.recline || {};
-this.recline.View = this.recline.View || {};
-this.recline.View.nvd3 = this.recline.View.nvd3 || {};
-
-;(function ($, my) {
-  'use strict';
+define('reclineViewNvd3', ['recline', 'backbone'], function (recline, Backbone) {
 
   var DEFAULT_CHART_WIDTH = 640;
   var DEFAULT_CHART_HEIGHT = 480;
@@ -16,7 +9,7 @@ this.recline.View.nvd3 = this.recline.View.nvd3 || {};
       return prefix + (Math.random() * 1e16).toFixed(0);
   }
 
-  my.Base = Backbone.View.extend({
+	var Base = Backbone.View.extend({
       template:'<div class="recline-graph recline-nvd3 row">' +
                   '{{data}}' +
                   '<div class="{{columnClass}} {{viewId}} recline-nvd3"style="display: block;">' +
@@ -265,5 +258,5 @@ this.recline.View.nvd3 = this.recline.View.nvd3 || {};
         return record[serie];
       }
   });
-
-})(jQuery, recline.View.nvd3);
+  return my.Base;
+};
