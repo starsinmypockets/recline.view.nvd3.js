@@ -1,5 +1,4 @@
-define('reclineViewNvd3', ['recline', 'backbone'], function (recline, Backbone) {
-
+define(['recline', 'backbone'], function (recline, Backbone) {
   var DEFAULT_CHART_WIDTH = 640;
   var DEFAULT_CHART_HEIGHT = 480;
   var MAX_ROW_NUM = 1000;
@@ -36,8 +35,7 @@ define('reclineViewNvd3', ['recline', 'backbone'], function (recline, Backbone) 
           self.getDefaults(),
           self.options.state.toJSON()
         );
-        console.log(options);
-        self.graphType = self.graphType || 'multiBarChart';
+        iself.graphType = self.graphType || 'multiBarChart';
         self.uuid = makeId('nvd3chart_');
         self.state = self.options.state;
         self.model = self.options.model;
@@ -258,5 +256,5 @@ define('reclineViewNvd3', ['recline', 'backbone'], function (recline, Backbone) 
         return record[serie];
       }
   });
-  return my.Base;
-};
+  return Base;
+});
