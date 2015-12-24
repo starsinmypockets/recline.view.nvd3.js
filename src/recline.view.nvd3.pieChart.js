@@ -1,20 +1,14 @@
-/*jshint multistr:true */
-
-this.recline = this.recline || {};
-this.recline.View = this.recline.View || {};
-
-;(function ($, my) {
-  'use strict';
-
-  my.pieChart = recline.View.nvd3.Base.extend({
+define(['recline.View.nvd3.Base'], function (Base) {
+  
+  var pieChart = Base.extend({
     initialize: function(options) {
       var self = this;
       self.graphType = 'pieChart';
-      recline.View.nvd3.Base.prototype.initialize.call(self, options);
+      Base.prototype.initialize.call(self, options);
     },
     render: function(){
       var self = this;
-      recline.View.nvd3.Base.prototype.render.call(self, {});
+      Base.prototype.render.call(self, {});
     },
     alterChart: function(chart){
       var self = this;
@@ -46,5 +40,5 @@ this.recline.View = this.recline.View || {};
       };
     }
   });
-
-})(jQuery, recline.View.nvd3);
+	return pieChart;
+})
