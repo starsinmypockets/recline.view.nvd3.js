@@ -1,4 +1,5 @@
-define(['recline', 'backbone'], function (recline, Backbone) {
+'use strict';
+define(['recline', 'backbone', 'lodash', 'd3', 'mustache', 'nvd3'], function (recline, Backbone, _, d3, Mustache, nv) {
   var DEFAULT_CHART_WIDTH = 640;
   var DEFAULT_CHART_HEIGHT = 480;
   var MAX_ROW_NUM = 1000;
@@ -23,7 +24,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
       CLEANUP_CHARS: '%$¥€',
       initialize: function(options) {
         var self = this;
-
+				console.log('b1');
         self.$el = $(self.el);
         self.options = _.defaults(options || {}, self.options);
 
@@ -35,7 +36,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
           self.getDefaults(),
           self.options.state.toJSON()
         );
-        iself.graphType = self.graphType || 'multiBarChart';
+        self.graphType = self.graphType || 'multiBarChart';
         self.uuid = makeId('nvd3chart_');
         self.state = self.options.state;
         self.model = self.options.model;
@@ -47,6 +48,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
       },
       getLayoutParams: function(){
         var self = this;
+      console.log('b2');
         var layout = {
           columnClass: 'col-md-12',
           width: self.state.get('width') || self.$el.innerWidth() || DEFAULT_CHART_WIDTH,
@@ -55,6 +57,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         return layout;
       },
       render: function(){
+      console.log('b3');
         var self = this;
         var tmplData;
         var htmls;
@@ -106,6 +109,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         return self;
       },
       lightUpdate: function(){
+      console.log('b4');
         var self = this;
         self.series = self.createSeries(self.model.records);
         self.setOptions(self.chart, self.state.get('options'));
@@ -119,6 +123,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
 
       },
       updateChart: function(){
+      console.log('b5');
         var self = this;
         d3.select('#' + self.uuid + ' svg')
           .transition()
@@ -126,6 +131,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
           .call(self.chart);
       },
       reduceXTicks: function(){
+      console.log('b6');
         var self = this;
         var layout = self.getLayoutParams(self.state.get('mode'));
         d3.select('.nv-x.nv-axis > g').selectAll('g')
@@ -136,6 +142,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
           .style('opacity', 0);
       },
       createSeries: function(records){
+      console.log('b7');
         var self = this;
         var series;
         var fieldType;
@@ -186,6 +193,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         return series;
       },
       cleanupY: function(y){
+      console.log('b8');
         var self = this;
         if (typeof y === 'string') {
           return y.replace(new RegExp('[' + self.CLEANUP_CHARS + ']'), '');
@@ -193,10 +201,12 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         return y;
       },
       getSort: function(sort){
+      console.log('b9');
         if(!sort || sort === 'default') return _.identity;
         return sort;
       },
       needForceX: function(records, graphType){
+      console.log('b10');
        var self = this;
        var xfield = self.state.get('xfield');
        records = records.toJSON();
@@ -205,6 +215,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
        }) && graphType !== 'discreteBarChart' && graphType !== 'multiBarChart';
       },
       getFormatter: function(type, format){
+      console.log('b11');
         var self = this;
         if(self.state.get('computeXLabels')) return self.chartMap.get.bind(self.chartMap);
 
@@ -217,6 +228,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         return formatter[type];
       },
       setOptions: function (chart, options) {
+      console.log('b12');
         var self = this;
         for(var optionName in options){
           var optionValue = options[optionName];
@@ -232,6 +244,7 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         }
       },
       createGraph: function(graphType){
+      console.log('b13');
         var self = this;
         var chart = nv.models[graphType]();
         // Set each graph option recursively.
@@ -239,20 +252,25 @@ define(['recline', 'backbone'], function (recline, Backbone) {
         return chart;
       },
       getDefaults: function(){
+      console.log('b14');
         return {};
       },
       getState: function(){
+      console.log('b15');
         var self = this;
         return self.state.attributes;
       },
       getSeries: function(){
+      console.log('b16');
         var self = this;
         return self.state.get('seriesFields');
       },
       x: function(record, xfield){
+      console.log('b17');
         return record[xfield];
       },
       y: function(record, serie){
+      console.log('b18');
         return record[serie];
       }
   });

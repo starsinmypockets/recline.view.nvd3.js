@@ -1,18 +1,21 @@
-define(['recline.View.nvd3.Base'], function (Base) {
-  
+'use strict';
+define(['rv3', 'lodash'], function (Base, _) {
+ console.log("LODASsH", _.map); 
   var pieChart = Base.extend({
     initialize: function(options) {
+			console.log('pc1');
       var self = this;
       self.graphType = 'pieChart';
       Base.prototype.initialize.call(self, options);
     },
     render: function(){
+      console.log('pc2');
       var self = this;
       Base.prototype.render.call(self, {});
     },
     alterChart: function(chart){
       var self = this;
-
+      console.log('pc3');
       // we don't want labels to fill all the canvas.
       if(self.series.length > 10){
         chart.showLegend(false);
@@ -20,6 +23,7 @@ define(['recline.View.nvd3.Base'], function (Base) {
     },
     createSeries: function(records){
       var self = this;
+      console.log('pc4');
       records = records.toJSON();
       var serie = _.first(self.state.get('seriesFields'));
       // Group by xfield and acum all the series fields.
@@ -31,6 +35,7 @@ define(['recline.View.nvd3.Base'], function (Base) {
       });
     },
     getDefaults: function(){
+      console.log('pc5');
       return {
         options: {
           showLabels: true,
@@ -41,4 +46,4 @@ define(['recline.View.nvd3.Base'], function (Base) {
     }
   });
 	return pieChart;
-})
+});
